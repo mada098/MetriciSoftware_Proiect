@@ -76,5 +76,32 @@ public class User {
 		return this.uuid;
 	}
 	
+	/**
+	 * Check whether a given pin matches the true User pin
+	 * @param aPin	the pin to check
+	 * @return		whether the pin is valid or not
+	 */
+	public boolean validatePin(String aPin) {
+		
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			return MessageDigest.isEqual(md.digest(aPin.getBytes()), this.pinHash);
+		} catch (NoSuchAlgorithmException e) {
+			System.err.println("error, caught NoSuchAlgorithmException");
+			e.printStackTrace();
+			System.exit(1);
+		}
+		
+		return false;
+		
+	}
+	
+	/**
+	 * Return the user's first name
+	 * @return	the first name
+	 */
+	public String getFirstName() {
+		return this.firstName;
+	}
 	
 }
